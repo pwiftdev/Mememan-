@@ -8,7 +8,7 @@
 const CONFIG = {
   ca:   "",                                   // e.g. "7xKq...pump"
   pump: "",                                   // e.g. "https://pump.fun/coin/7xKq...pump"
-  x:    "",                                   // e.g. "https://x.com/mememancoin"
+  x:    "https://x.com/mememanPF",             // e.g. "https://x.com/mememancoin"
   tg:   "",                                   // e.g. "https://t.me/mememan"
   dex:  ""                                    // e.g. "https://dexscreener.com/solana/..."
 };

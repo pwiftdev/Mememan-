@@ -1,19 +1,14 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": "Without this, Vercel auto-detects the public/ folder as the output directory and serves it as the site root — so it looks for public/index.html, finds nothing, and 404s. Our index.html lives at the repo root, so point the output there.",
   "outputDirectory": ".",
-
   "headers": [
     {
-      "//": "Media is large and stable — cache it. Not `immutable`, so swapping og.jpg or the video still propagates within a day.",
       "source": "/public/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
-      "//": "main.js holds the contract address. Always revalidate so a CA update is live immediately, not after a cache expiry.",
       "source": "/(css|js)/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }

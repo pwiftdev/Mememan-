@@ -99,9 +99,29 @@ It's a plain static site — serve the repo root.
 npx serve .
 ```
 
-- **Vercel / Netlify:** framework preset "Other", build command empty, output directory `.`
+- **Vercel:** `vercel.json` handles it — see below. No dashboard settings needed.
+- **Netlify:** framework preset "Other", build command empty, publish directory `.`
 - **GitHub Pages:** push and serve from the branch root
 - **Cloudflare Pages:** build command empty, output directory `/`
+
+### Why `vercel.json` exists
+
+Vercel has a zero-config rule: if it detects no framework **and** the repo contains a
+`public/` directory, it serves `public/` as the site root. Our `index.html` is at the repo
+root, so Vercel would look for `public/index.html`, find nothing, and return
+`404: NOT_FOUND` on every path. `"outputDirectory": "."` points it back at the root.
+
+Note that Vercel's schema is strict — it rejects `//` comment keys, so the file carries no
+inline comments. Its two header rules are deliberate:
+
+- `/public/*` — media is large and stable, cached a day with `stale-while-revalidate`.
+  Deliberately **not** `immutable`, so replacing `og.jpg` or `video.mp4` still propagates.
+- `/css/*`, `/js/*` — **always revalidate.** `js/main.js` holds the contract address, and
+  it gets edited at launch; a cached copy would serve a stale CA to returning visitors.
+
+If you'd rather not carry a config file, the alternative is to rename `public/` to
+`assets/` (and update the paths) — the magic name is the entire cause, so renaming it
+removes the trap on every host.
 
 Update `og:image` / `twitter:image` in `index.html` to an absolute URL
 (`https://yourdomain.com/public/og.jpg`) once the domain is live — some platforms won't
