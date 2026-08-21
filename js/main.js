@@ -5,7 +5,7 @@
    One string. Hero CA, COPY, Properties, pump.fun, and chart
    all fill from it. Leave "" until it's live.
    ============================================================ */
-const CONTRACT_ADDRESS = ""; // e.g. "7xKqXYz...pump"
+const CONTRACT_ADDRESS = "AwMXfmYXrFZeJhAYSVuJHVBXzrztFVeiV4ng8S5mpump";
 
 const CONFIG = {
   ca:   CONTRACT_ADDRESS,
