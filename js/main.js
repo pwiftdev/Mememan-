@@ -1,16 +1,18 @@
 /* ============================================================
    MEMEMAN.EXE — main.js
    ------------------------------------------------------------
-   >>> EDIT THIS BLOCK AT LAUNCH <<<
-   Paste the contract address and links once the coin is live.
-   Leave a value as "" and the site politely says "at launch".
+   >>> PASTE THE CONTRACT ADDRESS HERE AT LAUNCH <<<
+   One string. Hero CA, COPY, Properties, pump.fun, and chart
+   all fill from it. Leave "" until it's live.
    ============================================================ */
+const CONTRACT_ADDRESS = ""; // e.g. "7xKqXYz...pump"
+
 const CONFIG = {
-  ca:   "",                                   // e.g. "7xKq...pump"
-  pump: "",                                   // e.g. "https://pump.fun/coin/7xKq...pump"
-  x:    "https://x.com/mememanPF",             // e.g. "https://x.com/mememancoin"
+  ca:   CONTRACT_ADDRESS,
+  pump: CONTRACT_ADDRESS ? `https://pump.fun/coin/${CONTRACT_ADDRESS}` : "",
+  x:    "https://x.com/mememanPF",
   tg:   "",                                   // e.g. "https://t.me/mememan"
-  dex:  ""                                    // e.g. "https://dexscreener.com/solana/..."
+  dex:  CONTRACT_ADDRESS ? `https://dexscreener.com/solana/${CONTRACT_ADDRESS}` : ""
 };
 
 /* ---------- helpers ---------- */
@@ -577,7 +579,10 @@ function links() {
     const a = e.target.closest("[data-link]");
     if (!a) return;
     e.preventDefault();
-    const k = a.dataset.link, url = CONFIG[k];
+    const k = a.dataset.link;
+    // CONFIG wins, but never swallow a real href already on the element
+    const own = a.getAttribute("href");
+    const url = CONFIG[k] || (own && own !== "#" ? own : "");
     if (url) window.open(url, "_blank", "noopener");
     else toast(`${NAMES[k]} goes live at launch.`, "MEMEMAN.EXE", "i");
   });

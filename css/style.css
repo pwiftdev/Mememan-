@@ -311,7 +311,7 @@ ul{padding:0;list-style:none}
     rgba(4,8,12,.14) 76%,
     rgba(4,8,12,0)   100%);
 }
-.hero{display:grid;grid-template-columns:1.02fr 1.28fr;gap:30px;align-items:center}
+.hero{display:grid;grid-template-columns:1.08fr 1.2fr;gap:34px;align-items:center}
 .hero__kick{
   display:inline-flex;align-items:center;gap:9px;
   font:700 11px/1 var(--ui);letter-spacing:.19em;text-transform:uppercase;
@@ -323,32 +323,43 @@ ul{padding:0;list-style:none}
 .hero__kick{box-shadow:3px 3px 0 rgba(0,0,0,.6)}
 .hero h1{
   font-family:var(--imp);
-  font-size:clamp(46px,8.4vw,104px);
-  line-height:.86;letter-spacing:-.005em;text-transform:uppercase;
-  color:#fff;
-  text-shadow:4px 4px 0 #000, 0 0 60px rgba(70,150,255,.4);
+  font-size:clamp(44px,6.6vw,86px);
+  line-height:.84;letter-spacing:-.005em;text-transform:uppercase;
+  color:#fff;text-wrap:balance;
+  /* hard meme-caption offset + a tight dark halo. No wide glow — over a photo it
+     reads as a smudge rather than light. */
+  text-shadow:4px 4px 0 #000, 0 2px 14px rgba(0,4,8,.7);
 }
 .hero h1 span{
   display:block;color:var(--phos);
-  text-shadow:4px 4px 0 #000, 0 0 40px rgba(141,255,192,.45);
+  text-shadow:4px 4px 0 #000, 0 2px 14px rgba(0,4,8,.75);
 }
 .hero__sub{
-  margin-top:18px;max-width:46ch;font-size:15px;line-height:1.65;color:#cddae6;
+  margin-top:16px;max-width:52ch;font-size:14.5px;line-height:1.62;color:#cddae6;
   text-shadow:0 1px 4px rgba(0,0,0,.85);
 }
 .hero__sub b{color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.95)}
-.hero__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;align-items:center}
+.hero__cta{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px;
+  max-width:460px;
+}
+.hero__cta .btn--go{grid-column:1 / -1}
+/* Full-bleed strip under both columns. Moving these out of the copy column is what
+   balances the hero: the column was ~900px tall against a ~450px video, which pushed
+   everything below the fold and forced the buttons and stat plate to wrap raggedly. */
+.hero__bar{margin-top:38px}
 .ca{
-  margin-top:18px;display:flex;align-items:stretch;gap:0;
-  background:#0a1017;max-width:520px;
+  display:flex;align-items:stretch;gap:0;
+  background:#0a1017;width:100%;
+  box-shadow:4px 4px 0 rgba(0,0,0,.4);
 }
 .ca__k{
   display:grid;place-items:center;padding:0 11px;
   font:700 10px/1 var(--ui);letter-spacing:.16em;color:#04120a;background:var(--phos);
 }
 .ca__v{
-  flex:1;min-width:0;padding:9px 11px;
-  font-family:var(--mono);font-size:17px;color:var(--phos);
+  flex:1;min-width:0;padding:10px 14px;
+  font-family:var(--mono);font-size:18px;color:var(--phos);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:.02em;
 }
 .ca__b{
@@ -397,15 +408,17 @@ ul{padding:0;list-style:none}
 .player__t{font-family:var(--mono);font-size:16px;color:#14161a;min-width:86px;text-align:right}
 
 .statline{
-  display:flex;flex-wrap:wrap;gap:0;margin-top:22px;
+  display:grid;grid-template-columns:repeat(4,1fr);margin-top:10px;
   background:var(--face);color:#111;
+  box-shadow:4px 4px 0 rgba(0,0,0,.4);
 }
 .statline div{
-  flex:1 1 140px;padding:9px 12px;
+  padding:10px 14px;min-width:0;
   border:2px solid;border-color:var(--dkr) var(--hi) var(--hi) var(--dkr);
 }
 .statline dt{font:700 9px/1 var(--ui);letter-spacing:.16em;color:#5b5951;text-transform:uppercase}
-.statline dd{margin:5px 0 0;font-family:var(--mono);font-size:21px;line-height:1;color:#111}
+.statline dd{margin:5px 0 0;font-family:var(--mono);font-size:21px;line-height:1;color:#111;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .statline dd.on{color:#0a7a34}
 
 /* ---------- 05 ticker ---------- */
@@ -848,6 +861,8 @@ footer::before{
 /* ---------- 14 responsive ---------- */
 @media (max-width:1000px){
   .hero{grid-template-columns:1fr;gap:26px}
+  .hero__bar{margin-top:28px}
+  .hero__cta{max-width:none}
   #desk{background-image:
     linear-gradient(rgba(4,8,12,.68), rgba(4,8,12,.68)),
     radial-gradient(120% 90% at 50% 0%, rgba(28,120,140,.10), transparent 62%),
@@ -880,7 +895,8 @@ footer::before{
   .post__img img{width:110px}
   .cam{width:138px}
   .cam img{width:138px;height:96px}
-  .statline div{flex:1 1 50%}
+  .statline{grid-template-columns:repeat(2,1fr)}
+  .hero__cta{grid-template-columns:1fr}
   .ca{flex-wrap:wrap}
   .ca__v{flex:1 1 100%;order:3;font-size:15px}
   #start span{display:none}
